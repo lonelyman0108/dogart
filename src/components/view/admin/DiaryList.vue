@@ -13,10 +13,10 @@
                 </template>
             </el-table-column>
             <el-table-column label="审核" fixed="right" width="150">
-                <template #default="scope">
-                    <el-button v-if="scope.row.flag===0" @click="passVerification(scope.row.id, 1)" type="success" size="small" >通过</el-button>
-                    <el-button v-if="scope.row.flag===0" @click="passVerification(scope.row.id, 2)" type="danger" size="small" >拒绝</el-button>
-                </template>
+              <template #default="scope">
+                <el-button v-if="scope.row.flag===0 || scope.row.flag===2" @click="passVerification(scope.row.id, 1)" type="success" size="small" >通过</el-button>
+                <el-button v-if="scope.row.flag===0 || scope.row.flag===1" @click="passVerification(scope.row.id, 2)" type="danger" size="small" >拒绝</el-button>
+              </template>
             </el-table-column>
         </el-table>
     </div>
