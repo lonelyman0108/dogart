@@ -1,40 +1,33 @@
 import axios from "../request"
 
 //获取语录
-export const wordsGet = (data) => {
+export const getWords = () => {
     return axios({
         url: "/words",
         method: "get",
-        data,
         config: {
             timeout: 10000
         }
     })
 }
 //舔一舔提交
-export const wordsLick = (data) => {
+export const lickWords = (data) => {
     return axios({
-        url: "/wordslick",
+        url: "/words/lick",
         method: "post",
         data: data,
         config: {
-            headers: {
-                'Request-Type': 'wechat'
-            },
             timeout: 10000
         }
     })
 }
 //语录投稿
-export const addWords = (data) => {
+export const postWords = (data) => {
     return axios({
-        url: "/addWords",
+        url: "/words",
         method: "post",
         data: data,
         config: {
-            headers: {
-                'Request-Type': 'wechat'
-            },
             timeout: 10000
         }
     })

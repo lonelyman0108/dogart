@@ -8,8 +8,8 @@
             </el-card>
         </div>
         <div class="buttons">
-            <el-button type="primary" size="default" @click="getWords" round :disabled="clickMore">再来一条</el-button>
-            <el-button size="default" @click="lick" round :disabled="clickLick"><img src="@/assets/lick.gif" style="height: 22px;" /> <span class="lickCount">&nbsp;×{{ animatedNumber }}</span></el-button>
+            <el-button type="primary" size="default" @click="doGetWords" round :disabled="clickMore">再来一条</el-button>
+            <el-button size="default" @click="doLick" round :disabled="clickLick"><img src="@/assets/lick.gif" style="height: 22px;" /> <span class="lickCount">&nbsp;×{{ animatedNumber }}</span></el-button>
             <el-button type="success" size="default" @click="sendWordDialog = true" round>投稿</el-button>
         </div>
         <el-dialog title="投稿 舔狗の语" v-model="sendWordDialog" custom-class="send_dialog">
@@ -25,7 +25,7 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="sendWordDialog = false">取消</el-button>
-                    <el-button type="primary" @click="sendWord">确定</el-button>
+                    <el-button type="primary" @click="doPostWords">确定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -36,9 +36,9 @@
     import { computed, onMounted, ref, reactive, watch } from 'vue';
     import { ElMessage } from 'element-plus';
     import { gsap } from 'gsap';
-    import { wordsGet, wordsLick, addWords } from '@api/wordsApi'
+    import { getWords, lickWords, postWords } from '@api/wordsApi'
 
-    const wordid = ref(0);
+    const wordsId = ref(0);
     const content = ref("");
     const lickCount = ref(0);
     const tweenedNumber = ref(0);
@@ -56,31 +56,31 @@
         ]
     })
     
-    const getWords = () => {
-        wordsGet().then(res => {
-            wordid.value = res.id;
-            content.value = res.content;
-            lickCount.value = res.lickCount;
-            clickLick.value = res.lickDisable;
-            clickMore.value = true; 
+    const doGetWords = () => {
+        getWords().then(res => {
+            wordsId.value = res.data.id;
+            content.value = res.data.content;
+            lickCount.value = res.data.lickCount;
+            clickMore.value = true;
             setTimeout(function (){
                 clickMore.value = false;
             },800);
         })
     };
-    const lick = () => {
-        wordsLick({
-            id: wordid.value
+
+    const doLick = () => {
+        lickWords({
+            id: wordsId.value
         }).then(res => {
             clickLick.value = true;
-            lickCount.value = res.lickCount;
+            lickCount.value = res.data.lickCount;
         });
     }
-    const sendWord = () => {
+    const doPostWords = () => {
         wordsForms.value.validate((valid) => {
             if (valid) {
-                addWords(wordsForm).then(res => {
-                    if(res.conclusionType == 1){
+                postWords(wordsForm).then(res => {
+                    if(res.data.code === 200){
                         ElMessage.success('恭喜你提交成功，审核后即可显示');
                         wordsForms.value.resetFields();
                         sendWordDialog.value = false;
@@ -95,7 +95,7 @@
     }
 
     onMounted(() => {
-        getWords();
+        doGetWords();
     })
     const animatedNumber = computed(() => {
         return tweenedNumber.value.toFixed(0);

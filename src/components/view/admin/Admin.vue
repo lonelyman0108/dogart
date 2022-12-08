@@ -30,28 +30,28 @@
 <script setup>
     import { onMounted, ref } from 'vue';
     import { useRouter } from 'vue-router';
-    import { validLogin, noPassCount } from '@adminApi/homeApi';
+    import { checkLogin } from '@adminApi/homeApi';
 
     const wordsCount = ref(0);
     const diaryCount = ref(0);
     const router = useRouter();
-    const vLogin = () => {
-        validLogin().then(res => {
-            if(!res){
-                router.push("/login");
+    const doCheckLogin = () => {
+        checkLogin().then(res => {
+            if(res.code !== 200){
+              router.push("/login");
             }
         })
     }
 
     const count = () => {
-        noPassCount().then(res => {
-            wordsCount.value = res.wordsCount;
-            diaryCount.value = res.diaryCount;
-        })
+        // noPassCount().then(res => {
+        //     wordsCount.value = res.wordsCount;
+        //     diaryCount.value = res.diaryCount;
+        // })
     }
 
     onMounted(() => {
-        vLogin();
+        doCheckLogin();
         count();
     })
 </script>

@@ -11,7 +11,7 @@
 			</el-card>
 		</div>
 		<div class="buttons">
-			<el-button type="primary" size="default" @click="getDiary" round>再来一份</el-button>
+			<el-button type="primary" size="default" @click="doGetDiary" round>再来一份</el-button>
 			<el-button type="success" size="default" @click="sendDiaryDialog = true" round>投稿</el-button>
 		</div>
         <el-dialog title="投稿 舔狗日记" v-model="sendDiaryDialog" custom-class="send_dialog">
@@ -36,7 +36,7 @@
 
 <script setup>
     import { onMounted, reactive, ref } from 'vue'
-    import { diarysGet, addDiary } from '@api/diarysApi'
+    import { getDiary, postDiary } from '@api/diarysApi'
     import { ElMessage } from 'element-plus';
     import axios from 'axios'
     const citystr = ref("");
@@ -94,16 +94,15 @@
         citystr.value = year + '年' + month + '月' + day + '日 ' + city;
         weatherstr.value =  cond + ' / ' + cloud + '℃';
     }
-    const getDiary = () => {
-        diarysGet().then(res => {
-            content.value = res.content;
+    const doGetDiary = () => {
+        getDiary().then(res => {
+            content.value = res.data.content;
         })
     }
     const sendDiary = () => {
-        //ElMessage.error('Not finished, coming soon ~');
         diaryForms.value.validate((valid) => {
             if(valid){
-                addDiary(diaryForm).then(res => {
+                postDiary(diaryForm).then(res => {
                     ElMessage.success('恭喜你提交成功，审核后即可显示');
                     diaryForms.value.resetFields();
                     sendDiaryDialog.value = false;
@@ -116,6 +115,6 @@
 
     onMounted(() =>{
         getweather();
-        getDiary();
+        doGetDiary();
     })
 </script>

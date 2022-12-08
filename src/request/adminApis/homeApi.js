@@ -1,11 +1,10 @@
 import axios from '../request';
 
 //获取登录状态
-export const validLogin = (data) => {
+export const checkLogin = () => {
     return axios({
-        url: "/login",
-        method: "post",
-        data,
+        url: "/admin/checkLogin",
+        method: "get",
         config: {
             timeout: 10000
         }
@@ -13,26 +12,22 @@ export const validLogin = (data) => {
 }
 
 //登录
-export const Login = (data) => {
+export const login = (data) => {
     return axios({
-        url: "/login",
+        url: "/admin/login",
         method: "post",
         data: data,
         config: {
-            headers: {
-                'Request-Type': 'wechat'
-            },
             timeout: 10000
         }
     })
 }
 
 //获取语录
-export const wordsList = (data) => {
+export const wordsList = () => {
     return axios({
-        url: "/admin/getWords",
+        url: "/admin/words",
         method: "get",
-        data,
         config: {
             timeout: 10000
         }
@@ -40,11 +35,10 @@ export const wordsList = (data) => {
 }
 
 //获取日记
-export const diaryList = (data) => {
+export const diaryList = () => {
     return axios({
-        url: "/admin/getDiarys",
+        url: "/admin/diary",
         method: "get",
-        data,
         config: {
             timeout: 10000
         }
@@ -52,11 +46,11 @@ export const diaryList = (data) => {
 }
 
 //修改语录审核状态
-export const changeWordsState = (data) => {
+export const changeWordsFlag = (data) => {
     return axios({
-        url: "/admin/changeWordsState",
+        url: "/admin/words/changeFlag?id=" + data.id + "&flag=" + data.flag,
         method: "post",
-        data: data,
+        data: null,
         config: {
             timeout: 10000
         }
@@ -64,23 +58,11 @@ export const changeWordsState = (data) => {
 }
 
 //修改日记审核状态
-export const changeDiaryState = (data) => {
+export const changeDiaryFlag = (data) => {
     return axios({
-        url: "/admin/changeDiaryState",
+        url: "/admin/diary/changeFlag?id=" + data.id + "&flag=" + data.flag,
         method: "post",
-        data: data,
-        config: {
-            timeout: 10000
-        }
-    })
-}
-
-//获取未审核数量
-export const noPassCount = (data) => {
-    return axios({
-        url: "/admin/getCount",
-        method: "get",
-        data,
+        data: null,
         config: {
             timeout: 10000
         }

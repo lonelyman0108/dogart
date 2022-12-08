@@ -59,9 +59,9 @@ instance.interceptors.response.use(
     (error) => {
         //响应错误
         hideLoading();
-        const status = error.response.status;
+        const code = error.response.data.code;
         let message = "";
-        switch (status) {
+        switch (code) {
             case 400:
                 message = "请求错误";
                 break;
