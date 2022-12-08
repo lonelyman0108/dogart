@@ -13,9 +13,9 @@ export const getWords = () => {
 //舔一舔提交
 export const lickWords = (data) => {
     return axios({
-        url: "/words/lick",
+        url: "/words/lick?id=" + data.id,
         method: "post",
-        data: data,
+        data: null,
         config: {
             timeout: 10000
         }

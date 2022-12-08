@@ -73,7 +73,7 @@
             id: wordsId.value
         }).then(res => {
             clickLick.value = true;
-            lickCount.value = res.data.lickCount;
+            lickCount.value += 1;
         });
     }
     const doPostWords = () => {

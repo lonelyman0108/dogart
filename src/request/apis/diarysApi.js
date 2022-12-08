@@ -10,6 +10,17 @@ export const getDiary = () => {
         }
     })
 }
+//舔一舔提交
+export const lickDiary = (data) => {
+    return axios({
+        url: "/diary/lick?id=" + data.id,
+        method: "post",
+        data: null,
+        config: {
+            timeout: 10000
+        }
+    })
+}
 //日记投稿
 export const postDiary = (data) => {
     return axios({

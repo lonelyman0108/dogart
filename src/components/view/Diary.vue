@@ -12,6 +12,7 @@
 		</div>
 		<div class="buttons">
 			<el-button type="primary" size="default" @click="doGetDiary" round>再来一份</el-button>
+      <el-button size="default" @click="doLick" round :disabled="clickLick"><img src="@/assets/lick.gif" style="height: 22px;" /> <span class="lickCount">&nbsp;×{{ animatedNumber }}</span></el-button>
 			<el-button type="success" size="default" @click="sendDiaryDialog = true" round>投稿</el-button>
 		</div>
         <el-dialog title="投稿 舔狗日记" v-model="sendDiaryDialog" custom-class="send_dialog">
@@ -35,12 +36,19 @@
 </template>
 
 <script setup>
-    import { onMounted, reactive, ref } from 'vue'
-    import { getDiary, postDiary } from '@api/diarysApi'
+import {computed, onMounted, reactive, ref, watch} from 'vue'
+    import { getDiary, postDiary, lickDiary } from '@api/diarysApi'
     import { ElMessage } from 'element-plus';
     import axios from 'axios'
+import {gsap} from "gsap";
+import {lickWords} from "@api/wordsApi";
+    const diaryId = ref(0);
     const citystr = ref("");
     const content = ref("");
+    const lickCount = ref(0);
+    const tweenedNumber = ref(0);
+    const clickMore = ref(false);
+    const clickLick = ref(false);
     const weatherstr = ref("");
     const sendDiaryDialog = ref(false);
     const diaryForms = ref();
@@ -71,10 +79,10 @@
             '3cad9669ecba42c39ebfd73cdb566329', 
             '6ec2f3eef9bc448ba8a72e815dd86f12'
         ];
-        if (city == '' || dayDiff >= 1) {
+        if (city === '' || dayDiff >= 1) {
             let weather = {};
-            for (let i = 0; i < weatherKeys.length; i++) {
-                axios.get('https://free-api.heweather.net/s6/weather/now?location=auto_ip&key=' + weatherKeys[i]).then(res => {
+            for (const element of weatherKeys) {
+              axios.get('https://free-api.heweather.net/s6/weather/now?location=auto_ip&key=' + element).then(res => {
                     weather = res.data.HeWeather6[0];
                     city = weather.basic.parent_city || '';
                     cloud = weather.now.fl || '';
@@ -86,7 +94,7 @@
                 }).catch(err => {
                     console.log(err);
                 })
-                if (weather.status == 'ok') {
+                if (weather.status === 'ok') {
                     break;
                 }
             }
@@ -96,8 +104,22 @@
     }
     const doGetDiary = () => {
         getDiary().then(res => {
-            content.value = res.data.content;
+          diaryId.value = res.data.id;
+          content.value = res.data.content;
+          lickCount.value = res.data.lickCount;
+          clickMore.value = true;
+          setTimeout(function (){
+            clickMore.value = false;
+          },800);
         })
+    }
+    const doLick = () => {
+      lickDiary({
+        id: diaryId.value
+      }).then(res => {
+        clickLick.value = true;
+        lickCount.value += 1;
+      });
     }
     const sendDiary = () => {
         diaryForms.value.validate((valid) => {
@@ -117,4 +139,13 @@
         getweather();
         doGetDiary();
     })
+
+    const animatedNumber = computed(() => {
+      return tweenedNumber.value.toFixed(0);
+    });
+
+    watch(lickCount,(nv) => {
+      tweenedNumber.value = 0;
+      gsap.to(tweenedNumber, { duration: 0.5, value: nv });
+    });
 </script>
