@@ -19,7 +19,7 @@
                 则会拒绝这个句子进入内容库。</p>
             <el-form :model="wordsForm" ref="wordsForms" :rules="rules">
                 <el-form-item prop="words">
-                    <el-input type="textarea" :rows="9" placeholder="请输入内容" v-model="wordsForm.words"></el-input>
+                    <el-input type="textarea" :rows="9" placeholder="请输入内容" v-model="wordsForm.content"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -50,7 +50,7 @@
         words: ""
     });
     const rules = reactive({
-        words: [
+      content: [
             { required: true, message: '不说点什么怎么舔呢', trigger: 'blur' },
             { min: 8, max: 140, message: '你的投稿字符长度达不到合格的舔狗标准(8-140字)', trigger: 'blur' }
         ]
@@ -79,15 +79,15 @@
     const doPostWords = () => {
         wordsForms.value.validate((valid) => {
             if (valid) {
-                postWords(wordsForm).then(res => {
-                    if(res.data.code === 200){
-                        ElMessage.success('恭喜你提交成功，审核后即可显示');
-                        wordsForms.value.resetFields();
-                        sendWordDialog.value = false;
-                    }else{
-                        ElMessage.error('你写的东西有点不对头');
-                    }
-                })
+              postWords(wordsForm).then(res => {
+                if (res.code === 200) {
+                  ElMessage.success('恭喜你提交成功，审核后即可显示');
+                  wordsForms.value.resetFields();
+                  sendWordDialog.value = false;
+                } else {
+                  ElMessage.error('你写的东西有点不对头');
+                }
+              })
             } else {
                 return false;
             }

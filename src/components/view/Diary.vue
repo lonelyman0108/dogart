@@ -22,7 +22,7 @@
                 则会拒绝这篇日记进入内容库。</p>
             <el-form :model="diaryForm" ref="diaryForms" :rules="rules">
                 <el-form-item prop="diary">
-                    <el-input type="textarea" :rows="9" placeholder="请输入内容" v-model="diaryForm.diary"></el-input>
+                    <el-input type="textarea" :rows="9" placeholder="请输入内容" v-model="diaryForm.content"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -41,7 +41,6 @@ import {computed, onMounted, reactive, ref, watch} from 'vue'
     import { ElMessage } from 'element-plus';
     import axios from 'axios'
 import {gsap} from "gsap";
-import {lickWords} from "@api/wordsApi";
     const diaryId = ref(0);
     const citystr = ref("");
     const content = ref("");
@@ -56,7 +55,7 @@ import {lickWords} from "@api/wordsApi";
         diary: ""
     });
     const rules = reactive({
-        diary: [
+      content: [
             {required: true, message: "你的日记什么都不写吗？", trigger: 'blur'},
             {min: 15, max: 160, message: '你的日记长度不符合字数限制(15-160字)', trigger: 'blur'}
         ]
@@ -124,11 +123,15 @@ import {lickWords} from "@api/wordsApi";
     const sendDiary = () => {
         diaryForms.value.validate((valid) => {
             if(valid){
-                postDiary(diaryForm).then(res => {
-                    ElMessage.success('恭喜你提交成功，审核后即可显示');
-                    diaryForms.value.resetFields();
-                    sendDiaryDialog.value = false;
-                });
+              postDiary(diaryForm).then(res => {
+                if (res.code === 200) {
+                  ElMessage.success('恭喜你提交成功，审核后即可显示');
+                  diaryForms.value.resetFields();
+                  sendDiaryDialog.value = false;
+                } else {
+                  ElMessage.error('你写的东西有点不对头');
+                }
+              });
             }else{
                 return false;
             }
