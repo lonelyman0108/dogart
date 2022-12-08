@@ -14,10 +14,4 @@ npm install -D unplugin-vue-components unplugin-auto-import
 
 ### 后端配合
 
-你可以参考我用 tp6 写的后端自己撸一个后端，也可以直接使用我的 tp6 后端项目  
-前端打包后放置在 tp6 项目的 public 目录里即可  
-后端项目地址：https://github.com/Dieinwarm/dogart
-
-### 🙏最后
-
-代码很垃圾，请多包涵，前端和 PHP 后端都是自学，如有使用不当的地方，欢迎指正
+后端项目地址：https://github.com/lonelyman0108/dogart-api
