@@ -2,14 +2,7 @@ body {
     margin: 0;
 }
 
-.header {
-    height: 100px;
-    background-color: gray;
-    color: white;
-    line-height: 100px;
-    padding-left: 20px;
-    font-size: 20px;
-}
+
 
 .content-box{
     margin: 2rem auto 0;
@@ -22,6 +15,8 @@ body {
 }
 .buttons{
     margin-top: 20px;
-
     text-align: center;
+}
+.box-card {
+    height: 100%;
 }

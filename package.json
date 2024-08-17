@@ -4,11 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite serve --mode dev",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.4",
     "element-plus": "^2.8.0",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
