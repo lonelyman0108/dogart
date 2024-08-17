@@ -8,11 +8,11 @@
 
 <style scoped>
 .header {
-  height: 100px;
+  height: 100%;
   background-color: gray;
   color: white;
   line-height: 100px;
-  padding-left: 20px;
+  padding-left: 30px;
   font-size: 20px;
 }
 </style>

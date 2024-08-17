@@ -2,9 +2,7 @@ body {
     margin: 0;
 }
 
-
-
-.content-box{
+.content-box {
     margin: 2rem auto 0;
     width: 60%;
     height: 300px;
@@ -13,10 +11,12 @@ body {
 .el-menu--horizontal > .el-menu-item {
     font-size: 1rem;
 }
-.buttons{
+
+.buttons {
     margin-top: 20px;
     text-align: center;
 }
+
 .box-card {
     height: 100%;
 }

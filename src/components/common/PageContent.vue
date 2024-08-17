@@ -17,21 +17,18 @@ const menus = reactive([
 </script>
 
 <template>
-  <ElRow justify="center" >
-    <ElCol>
-      <ElMenu class="menu-tab" mode="horizontal" router :default-active="$route.path">
-        <ElMenuItem v-for="menu in menus" :index="menu.path" :key="menu.path">
-          {{ menu.name }}
-        </ElMenuItem>
-      </ElMenu>
-      <RouterView/>
-    </ElCol>
-  </ElRow>
+  <ElMenu class="menu-tab" mode="horizontal" router :default-active="$route.path">
+    <ElMenuItem v-for="menu in menus" :index="menu.path" :key="menu.path">
+      {{ menu.name }}
+    </ElMenuItem>
+  </ElMenu>
+  <RouterView/>
 </template>
 
 <style scoped>
-.menu-tab{
+.menu-tab {
   justify-content: center;
   border-bottom: none;
+  height: 100%;
 }
 </style>
