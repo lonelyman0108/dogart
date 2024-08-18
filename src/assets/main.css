@@ -20,3 +20,7 @@ body {
 .box-card {
     height: 100%;
 }
+
+.table-content {
+    margin: 10px 20px;
+}

@@ -54,21 +54,17 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     response => {
         hideLoading();
-        return response.data;
-    },
-    error => {
-        hideLoading();
-        const code = error.data.code;
+        const code = response.data.code;
         let message;
         switch (code) {
             case 200:
-                break;
+                return response.data;
             case 400:
                 message = "请求错误";
                 break;
             case 401:
                 message = "未授权操作，请登录";
-                router.push('/login');
+                router.push('login');
                 break;
             case 404:
                 message = "请求地址出错";
@@ -98,6 +94,9 @@ axiosInstance.interceptors.response.use(
                 message = "请求失败";
         }
         ElMessage.error(message);
+    },
+    error => {
+        hideLoading();
     }
 )
 

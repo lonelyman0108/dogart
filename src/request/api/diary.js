@@ -26,3 +26,21 @@ export const postDiary = (content) => {
         }
     })
 }
+
+export const adminGetDiaries = () => {
+    return axios({
+        url: '/admin/diary',
+        method: 'get'
+    })
+}
+
+export const adminChangeDiaryFlag = (id, flag) => {
+    return axios({
+        url: '/admin/diary/changeFlag',
+        method: 'post',
+        params: {
+            id,
+            flag
+        }
+    })
+}

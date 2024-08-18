@@ -26,3 +26,21 @@ export const postWords = (content) => {
         }
     })
 }
+
+export const adminGetWords = () => {
+    return axios({
+        url: '/admin/words',
+        method: 'get'
+    })
+}
+
+export const adminChangeWordsFlag = (id, flag) => {
+    return axios({
+        url: '/admin/words/changeFlag',
+        method: 'post',
+        params: {
+            id,
+            flag
+        }
+    })
+}
