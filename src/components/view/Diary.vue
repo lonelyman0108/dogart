@@ -1,8 +1,9 @@
 <script setup>
 import {ref, onMounted} from 'vue'
-import {getDiary, lickDiary} from "@/request/api/diary.js";
+import {getDiary, lickDiary, postDiary} from "@/request/api/diary.js";
 import {ElMessage} from "element-plus";
 import {getWeather} from "@/request/api/common/weather.js";
+import PostDialog from "@/components/view/common/PostDialog.vue";
 
 const content = ref("");
 const contentId = ref(0);
@@ -14,6 +15,13 @@ let city = ref('')
 let date = ref('')
 let weather = ref('')
 let temperature = ref('')
+
+let showPostDialog = ref(false)
+
+let contentRules = [
+  {required: true, message: '不说点什么怎么舔呢', trigger: 'blur'},
+  {min: 8, max: 140, message: '你的投稿内容的长度达不到舔狗标准(8-140字)', trigger: 'blur'}
+]
 
 const doGetDiary = () => {
   getDiary().then(res => {
@@ -51,6 +59,17 @@ const doCopy = () => {
   ElMessage.success("复制成功")
 }
 
+const doPostDiary = (content) => {
+  postDiary(content).then(res => {
+    if (res.code === 200) {
+      showPostDialog.value = false
+      ElMessage.success("投稿成功")
+    } else {
+      ElMessage.error(res.msg)
+    }
+  })
+}
+
 onMounted(() => {
   doGetDiary()
   doGetWeather()
@@ -75,8 +94,10 @@ onMounted(() => {
     <ElButton type="info" round @click="doCopy">复制</ElButton>
   </div>
   <div class="buttons">
-    <ElButton type="primary" round>投稿</ElButton>
+    <ElButton type="primary" round @click="showPostDialog=true">投稿</ElButton>
   </div>
+  <PostDialog :isShow="showPostDialog" title="投稿 - 舔狗日记" :doPostFunc="doPostDiary" :contentRules="contentRules"
+              :closeDialogFunc="()=>{showPostDialog=false}"/>
 </template>
 
 <style scoped>
