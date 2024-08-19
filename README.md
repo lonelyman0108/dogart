@@ -1,29 +1,18 @@
-# dogart
+# 🐶 舔狗的艺术
 
-This template should help get you started developing with Vue 3 in Vite.
+## 构建
 
-## Recommended IDE Setup
+由于使用 element-Plus 的按需自动加载功能，需要先安装相关依赖
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```
+ yarn add -D unplugin-vue-components unplugin-auto-import
 ```
 
-### Compile and Hot-Reload for Development
+开启调试
 
-```sh
-npm run dev
 ```
+ yarn run dev
+ ```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+## 后端
+https://github.com/lonelyman0108/dogart-api
