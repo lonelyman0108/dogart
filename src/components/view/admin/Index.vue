@@ -45,8 +45,5 @@ const menus = reactive([
   height: 100%;
 }
 
-.handle-cell {
-  align-items: center;
-  display: flex;
-}
+
 </style>

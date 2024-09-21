@@ -44,3 +44,13 @@ export const adminChangeWordsFlag = (id, flag) => {
         }
     })
 }
+
+export const adminDeleteWords = (id) => {
+    return axios({
+        url: '/admin/words',
+        method: 'delete',
+        params: {
+            id
+        }
+    })
+}

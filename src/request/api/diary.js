@@ -44,3 +44,13 @@ export const adminChangeDiaryFlag = (id, flag) => {
         }
     })
 }
+
+export const adminDeleteDiary = (id) => {
+    return axios({
+        url: '/admin/diary',
+        method: 'delete',
+        params: {
+            id
+        }
+    })
+}

@@ -24,3 +24,7 @@ body {
 .table-content {
     height: 100%;
 }
+
+.handle-cell-item{
+    margin: 0 5px;
+}

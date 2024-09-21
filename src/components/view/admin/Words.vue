@@ -1,6 +1,6 @@
 <script setup>
 import {reactive, onMounted} from "vue";
-import {adminGetWords, adminChangeWordsFlag} from "@/request/api/words.js";
+import {adminGetWords, adminChangeWordsFlag, adminDeleteWords} from "@/request/api/words.js";
 import {ArrowDown} from '@element-plus/icons-vue'
 
 let wordsList = reactive([])
@@ -12,6 +12,11 @@ let doAdminGetWords = () => {
 }
 let doAdminChangeWordsFlag = (id, flag) => {
   adminChangeWordsFlag(id, flag).then(res => {
+    doAdminGetWords()
+  })
+}
+let doAdminDeleteDiary = (id) => {
+  adminDeleteWords(id).then(res => {
     doAdminGetWords()
   })
 }
@@ -41,8 +46,8 @@ onMounted(() => {
       </ElTableColumn>
       <ElTableColumn label="操作" fixed="right">
         <template #default="scope">
-          <div class="handle-cell">
-            <el-dropdown trigger="click">
+          <div>
+            <el-dropdown trigger="click" class="handle-cell-item">
               <el-button type="primary" class="dropdown-link">处理
                 <el-icon class="el-icon--right">
                   <arrow-down/>
@@ -59,6 +64,7 @@ onMounted(() => {
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
+            <el-button class="handle-cell-item" type="danger" @click="doAdminDeleteDiary(scope.row.id)">删除</el-button>
           </div>
         </template>
       </ElTableColumn>
