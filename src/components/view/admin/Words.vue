@@ -1,6 +1,7 @@
 <script setup>
 import {reactive, onMounted} from "vue";
 import {adminGetWords, adminChangeWordsFlag} from "@/request/api/words.js";
+import {ArrowDown} from '@element-plus/icons-vue'
 
 let wordsList = reactive([])
 
@@ -25,7 +26,7 @@ onMounted(() => {
 
 <template>
   <div class="table-content">
-    <ElTable :data="wordsList" max-height="700px" highlight-current-row>
+    <ElTable :data="wordsList" height="100%" highlight-current-row>
       <ElTableColumn prop="id" label="序号" width="80"/>
       <ElTableColumn prop="content" label="内容" show-overflow-tooltip/>
       <ElTableColumn prop="ipAddress" label="提交IP" width="200"/>
@@ -38,14 +39,27 @@ onMounted(() => {
           <ElTag v-else-if="scope.row.flag === 2" type="danger">驳回</ElTag>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="操作" width="100">
+      <ElTableColumn label="操作" fixed="right">
         <template #default="scope">
-          <ElButton v-if="scope.row.flag === 0 || scope.row.flag === 1" type="danger" size="small"
-                    @click="doAdminChangeWordsFlag(scope.row.id,2)">驳回
-          </ElButton>
-          <ElButton v-if="scope.row.flag === 0 || scope.row.flag === 2" type="primary" size="small"
-                    @click="doAdminChangeWordsFlag(scope.row.id,1)">通过
-          </ElButton>
+          <div class="handle-cell">
+            <el-dropdown trigger="click">
+              <el-button type="primary" class="dropdown-link">处理
+                <el-icon class="el-icon--right">
+                  <arrow-down/>
+                </el-icon>
+              </el-button>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item v-if="scope.row.flag === 0 || scope.row.flag === 1"
+                                    @click="doAdminChangeWordsFlag(scope.row.id,2)">驳回
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="scope.row.flag === 0 || scope.row.flag === 2"
+                                    @click="doAdminChangeWordsFlag(scope.row.id,1)">通过
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </div>
         </template>
       </ElTableColumn>
       <template #empty>暂无语录</template>
@@ -54,6 +68,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
 
 </style>

@@ -11,7 +11,7 @@
   height: 100%;
   background-color: gray;
   color: white;
-  line-height: 100px;
+  line-height: 80px;
   padding-left: 30px;
   font-size: 20px;
 }

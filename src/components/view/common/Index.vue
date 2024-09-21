@@ -18,33 +18,34 @@ const menus = reactive([
 </script>
 
 <template>
-  <ElMain>
-    <ElMenu class="menu-tab" mode="horizontal" router :default-active="$route.path">
-      <ElMenuItem v-for="menu in menus" :index="menu.path" :key="menu.path">
-        {{ menu.name }}
-      </ElMenuItem>
-    </ElMenu>
-    <RouterView/>
-  </ElMain>
-  <ElFooter>
-    <PageFooter/>
-  </ElFooter>
+  <el-container>
+    <ElMain>
+      <ElMenu class="menu-tab" mode="horizontal" router :default-active="$route.path">
+        <ElMenuItem v-for="menu in menus" :index="menu.path" :key="menu.path">
+          {{ menu.name }}
+        </ElMenuItem>
+      </ElMenu>
+      <RouterView/>
+    </ElMain>
+    <ElFooter height="100px">
+      <PageFooter/>
+    </ElFooter>
+  </el-container>
 </template>
 
 <style scoped>
+.el-container {
+  flex-direction: column;
+}
+
 .el-main {
   padding: 0;
   margin: 0;
 }
 
-.el-footer {
-  padding: 0;
-  height: 100px;
-}
-
 .menu-tab {
   justify-content: center;
   border-bottom: none;
-  height: 100%;
+  height: 50px;
 }
 </style>
