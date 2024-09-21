@@ -39,7 +39,7 @@ const rules = {
 onMounted(() => {
   const token = window.localStorage.getItem('token')
   if (token) {
-    router.replace('admin')
+    router.push('/admin')
   }
 })
 </script>
@@ -51,10 +51,13 @@ onMounted(() => {
         <ElInput v-model="loginForm.userName"/>
       </ElFormItem>
       <ElFormItem label="密码：" prop="password">
-        <ElInput v-model="loginForm.password" type="password"/>
+        <ElInput v-model="loginForm.password" type="password" @keyup.enter="doLogin"/>
       </ElFormItem>
+      <div class="button-container">
+        <ElButton type="primary" @click="doLogin" class="handle-button">登录</ElButton>
+        <ElButton type="info" @click="router.back()" class="handle-button">返回</ElButton>
+      </div>
     </ElForm>
-    <ElButton type="primary" @click="doLogin" class="login-button">登录</ElButton>
   </div>
 </template>
 
@@ -64,7 +67,11 @@ onMounted(() => {
   margin: 40px auto;
 }
 
-.login-button {
-  width: 100%;
+.button-container {
+  text-align: center;
+}
+
+.handle-button {
+  width: 100px;
 }
 </style>

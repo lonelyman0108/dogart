@@ -3,7 +3,7 @@ import {ref, onMounted} from "vue";
 
 import {getWords, lickWords, postWords} from "@/request/api/words.js";
 import {ElMessage} from "element-plus";
-import PostDialog from "@/components/view/common/PostDialog.vue";
+import PostDialog from "@/components/common/PostDialog.vue";
 
 const content = ref("");
 const contentId = ref(0);
@@ -71,7 +71,7 @@ onMounted(() => {
   <div class="buttons">
     <ElButton type="primary" round @click="doGetWords" :disabled="canNotGetMore">再来一条</ElButton>
     <ElButton round @click="doLickWords" :disabled="licked">
-      <img src="@/assets/img/lick.gif" style="height: 22px;" alt="舔"/> x {{ lickCount }}
+      <img src="../../../assets/img/lick.gif" style="height: 22px;" alt="舔"/> x {{ lickCount }}
     </ElButton>
     <ElButton type="info" round @click="doCopy">复制</ElButton>
   </div>

@@ -12,29 +12,29 @@ const router = createRouter({
                 {
                     path: '/',
                     name: 'content-index',
-                    component: () => import('@/components/view/Index.vue'),
+                    component: () => import('@/components/view/common/Index.vue'),
                     redirect: '/words',
                     children: [
                         {
                             path: '/words',
                             name: 'words',
-                            component: () => import('@/components/view/Words.vue')
+                            component: () => import('@/components/view/common/Words.vue')
                         },
                         {
                             path: '/diary',
                             name: 'diary',
-                            component: () => import('@/components/view/Diary.vue')
+                            component: () => import('@/components/view/common/Diary.vue')
                         }
                     ]
                 },
                 {
                     path: '/login',
                     name: 'login',
-                    component: () => import('@/components/view/admin/Login.vue')
+                    component: () => import('@/components/view/Login.vue')
                 },
                 {
                     path: '/admin',
-                    name: 'admin',
+                    name: 'admin-index',
                     component: () => import('@/components/view/admin/Index.vue'),
                     redirect: '/admin/words',
                     children: [
@@ -54,5 +54,6 @@ const router = createRouter({
         }
     ]
 })
+
 
 export default router

@@ -36,10 +36,12 @@ const menus = reactive([
   padding: 0;
   margin: 0;
 }
+
 .el-footer {
   padding: 0;
   height: 100px;
 }
+
 .menu-tab {
   justify-content: center;
   border-bottom: none;
