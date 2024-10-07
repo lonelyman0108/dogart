@@ -11,6 +11,10 @@ const menus = reactive([
         name: '舔狗日记',
         path: '/admin/diary',
       },
+      {
+        name: '设置',
+        path: '/admin/setting',
+      }
     ]
 )
 </script>
@@ -33,11 +37,6 @@ const menus = reactive([
 .main-content {
   height: 100%;
   padding: 10px;
-}
-
-.el-aside {
-  padding: 0;
-  margin: 0;
 }
 
 .menu-tab {

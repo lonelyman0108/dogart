@@ -47,6 +47,11 @@ const router = createRouter({
                             path: '/admin/diary',
                             name: 'admin-diary',
                             component:() => import('@/components/view/admin/Diary.vue')
+                        },
+                        {
+                            path: '/admin/setting',
+                            name: 'admin-setting',
+                            component: () => import('@/components/view/admin/Setting.vue')
                         }
                     ]
                 }

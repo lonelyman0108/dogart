@@ -25,6 +25,11 @@ body {
     height: 100%;
 }
 
-.handle-cell-item{
+.handle-cell-item {
     margin: 0 5px;
+}
+
+.el-aside {
+    padding: 0;
+    margin: 0;
 }
